@@ -12,6 +12,9 @@ jobs:
       - run:
           name: build base iamge
           command: docker build -t base .
+      - run:
+          name: save base image
+          command: docker save base > base-image.tar
 workflows:
   version: 2
   build_and_test:
