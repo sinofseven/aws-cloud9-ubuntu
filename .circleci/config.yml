@@ -9,6 +9,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: ssh config
+          when: always
           command: mkdir ~/.ssh; echo "host *" >> ~/.ssh/config; echo "  StrictHostKeyChecking no" >> ~/.ssh/config; echo "  UserKnownHostFile=/dev/null"; cat ~/.ssh/config 
 #      - run:
 #          name: install ansible
