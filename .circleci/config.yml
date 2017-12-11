@@ -24,7 +24,7 @@ jobs:
           command: docker run -d --name test -p 10022:22 base
       - run:
           name: ping
-          command: ansible -i hosts container --user cloud9 --private-key='default.pem' -m ping
+          command: ansible -i ./hosts container --user cloud9 --private-key='default.pem' -m ping
 workflows:
   version: 2
   build_and_test:
