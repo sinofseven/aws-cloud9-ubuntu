@@ -10,7 +10,7 @@ jobs:
       - run:
           name: ssh config
           when: always
-          command: ls -la ~/
+          command: ls -la ~/.ssh
 #      - run:
 #          name: install ansible
 #          command: apk add --no-cache ansible
