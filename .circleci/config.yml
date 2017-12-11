@@ -19,6 +19,9 @@ jobs:
       - run:
           name: check
           command: which ansible
+      - run:
+          name: ping
+          command: ansible workspace.luciferous.xyz -u yuta -m ping
 workflows:
   version: 2
   build_and_test:
