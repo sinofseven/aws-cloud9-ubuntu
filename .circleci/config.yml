@@ -20,8 +20,11 @@ jobs:
           name: build base iamge
           command: docker build -t base .
       - run:
+          name: create network
+          command: docker network create --subnet=192.168.56.0/24 my_network
+      - run:
           name: start base container
-          command: docker run -d --name test -p 10022:22 base
+          command: docker run -d --name test --net=my_network --ip=192.168.56.100 -p 10022:22 base
       - run:
           name: ping
           command: ansible -i $(pwd)/hosts container --user cloud9 --private-key='$(pwd)/default.pem' -m ping
