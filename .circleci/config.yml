@@ -8,7 +8,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: pull latest
-          command: docker pull $DOCKERUSERNAME/aws-cloud9-ubuntu
+          command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
 workflows:
   version: 2
   build_and_test:
