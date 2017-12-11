@@ -10,7 +10,7 @@ jobs:
       - run:
           name: ssh config
           when: always
-          command: mkdir ~/.ssh; echo "host *" >> ~/.ssh/config; echo "  StrictHostKeyChecking no" >> ~/.ssh/config; echo "  UserKnownHostFile=/dev/null"; cat ~/.ssh/config 
+          command: ls -la ~/
 #      - run:
 #          name: install ansible
 #          command: apk add --no-cache ansible
