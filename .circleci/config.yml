@@ -8,36 +8,19 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: install ansible
+          command: apk add --no-cache ansible
+      - run:
           name: pull latest
           command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
       - run:
           name: build base iamge
           command: docker build -t base .
       - run:
-          name: save base image
-          command: docker save base > base-image.tar
-      - save_cache:
-          key: image-{{ epoch }}
-          paths:
-            - ~/app/base-image.tar
-  make-docker-image:
-    docker:
-      - image: docker
-    working_directory: ~/app
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: ls 1st
-          command: ls
-      - restore_cache:
-          keys: image
-      - run:
-          name: ls 2nd
-          command: ls
+          name: check
+          command: which ansible
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build-base-image
-      - makd-docker-image
