@@ -8,7 +8,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: ssh config
+          name: ssh config2
           command: echo 'Host *' >> ~/.ssh/config && echo '  StrictHostKeyChecking no' >> ~/.ssh/config && echo '  UserKnownHostsFile=/dev/null' >> ~/.ssh/config && cat ~/.ssh/config
 #      - run:
 #          name: install ansible
