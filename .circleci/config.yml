@@ -21,7 +21,7 @@ jobs:
           command: which ansible
       - run:
           name: start base container
-          command: docke run -d -p 10022:22 base
+          command: docker run -d -p 10022:22 base
       - run:
           name: ping
           command: ansible -i "localhost:10022," -u cloud9 -m ping
