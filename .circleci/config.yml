@@ -10,27 +10,37 @@ jobs:
       - run:
           name: ssh config
           command: echo 'Host *' >> ~/.ssh/config && echo '  StrictHostKeyChecking no' >> ~/.ssh/config && echo '  UserKnownHostsFile=/dev/null' >> ~/.ssh/config && cat ~/.ssh/config
+          
       - run:
-          name: install ansible
-          command: apk add --no-cache ansible
+          name: info
+          command: docker info
       - run:
-          name: pull latest
-          command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
-      - run:
-          name: build base iamge
-          command: docker build -t base .
-      - run:
-          name: start base container
-          command: docker run -d --name test -p 10022:22 base
-      - run:
-          name: inspect
-          command: export BASE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' test)
-      - run:
-          name: start base container
-          command: apk add --no-cache openssh 
-      - run:
-          name: ping
-          command: scp init.sh -i default.pem -P 10022 cloud9@$BASE_IP:~/
+          name: env
+          command: env
+#      - run:
+#          name: install ansible
+#          command: apk add --no-cache ansible
+#      - run:
+#          name: pull latest
+#          command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
+#      - run:
+#          name: build base iamge
+#          command: docker build -t base .
+#      - run:
+#          name: start base container
+#          command: docker run -d --name test -p 10022:22 base
+#      - run:
+#          name: inspect ip
+#          command: export BASE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' test)
+#      - run:
+#          name: echo ip
+#          command: echo $BASE_IP
+#      - run:
+#          name: start base container
+#          command: apk add --no-cache openssh 
+#      - run:
+#          name: ping
+#          command: scp init.sh -i default.pem -P 10022 cloud9@$BASE_IP:~/
 workflows:
   version: 2
   build:
