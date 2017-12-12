@@ -16,6 +16,15 @@ jobs:
       - run:
           name: build base iamge
           command: docker build -f Dockerfile-base -t base .
+      - run:
+          name: create network
+          command: docker network create ansible
+      - run:
+          name: run base
+          command: docker run -d --name base --net=ansible base
+      - run:
+          name: run ansible
+          command: docker run --rm --net=ansible ansible
 
 workflows:
   version: 2
