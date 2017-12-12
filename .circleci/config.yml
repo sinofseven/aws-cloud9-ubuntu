@@ -12,7 +12,7 @@ jobs:
           command: echo 'Host *' >> ~/.ssh/config && echo '  StrictHostKeyChecking no' >> ~/.ssh/config && echo '  UserKnownHostsFile=/dev/null' >> ~/.ssh/config && cat ~/.ssh/config
       - run:
           name: get remote ip
-          command: export REMOTE_IP=$(echo $DOCKER_HOST | sed -E 's/^.*tcp:\/\/([^/]+).*/\1/g' | sed -e 's/:[0-9]*//')
+          command: echo $DOCKER_HOST | sed -E 's/^.*tcp:\/\/([^/]+).*/\1/g' | sed -e 's/:[0-9]*//'
       - run:
           name: ip check
           command: echo $REMOTE_IP
