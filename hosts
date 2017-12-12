@@ -1,2 +1,7 @@
 [container]
-192.168.56.100:10022
+base
+
+[container:vars]
+ansible_user=cloud9
+ansible_ssh_private_key_file=test.pem
+ansible_python_interpreter=/usr/bin/python3

@@ -8,29 +8,15 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: ssh config
-          command: echo 'Host *' >> ~/.ssh/config && echo '  StrictHostKeyChecking no' >> ~/.ssh/config && echo '  UserKnownHostsFile=/dev/null' >> ~/.ssh/config && cat ~/.ssh/config
-      - run:
-          name: get remote ip
-          command: echo $DOCKER_HOST | sed -E 's/^.*tcp:\/\/([^/]+).*/\1/g' | sed -e 's/:[0-9]*//' > ip
-      - run:
-          name: install ansible
-          command: apk add --no-cache ansible
-      - run:
           name: pull latest
           command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
       - run:
+          name: build ansible image
+          command: docker build -f Dockerfile-ansible -t ansible .
+      - run:
           name: build base iamge
-          command: docker build -t base .
-      - run:
-          name: start base container
-          command: docker run -d --name test -p 10022:22 base
-      - run:
-          name: start base container
-          command: apk add --no-cache openssh 
-      - run:
-          name: ping
-          command: scp -i default.pem -P 10022 init.sh cloud9@$(cat ip):~/
+          command: docker build -f Dockerfile-base -t base .
+
 workflows:
   version: 2
   build:

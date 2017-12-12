@@ -1,0 +1,6 @@
+- hosts: container
+  tasks:
+    - name: download
+      get_url:
+        url: https://cf02.luciferous.xyz/vim/linux/vimrc
+        dest: /tmp/vimrc
