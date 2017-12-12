@@ -27,7 +27,7 @@ jobs:
           command: docker run -d --name test --net=my_network --ip=192.168.56.100 -p 10022:22 base
       - run:
           name: ping
-          command: init.sh scp -i default.pem -P 10022 cloud9@192.168.56.100:~/
+          command: scp init.sh -i default.pem -P 10022 cloud9@192.168.56.100:~/
 workflows:
   version: 2
   build_and_test:
