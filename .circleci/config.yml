@@ -20,22 +20,19 @@ jobs:
           name: build base iamge
           command: docker build -t base .
       - run:
-          name: create network
-          command: docker network create --subnet=192.168.56.0/24 my_network
-      - run:
           name: start base container
-          command: docker run -d --name test --net=my_network --ip=192.168.56.100 -p 10022:22 base
+          command: docker run -d --name test -p 10022:22 base
       - run:
           name: inspect
-          command: docker inspect test
-#      - run:
-#          name: start base container
-#          command: apk add --no-cache openssh 
-#      - run:
-#          name: ping
-#          command: scp init.sh -i default.pem -P 10022 cloud9@192.168.56.100:~/
+          command: export BASE_IP=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' test)
+      - run:
+          name: start base container
+          command: apk add --no-cache openssh 
+      - run:
+          name: ping
+          command: scp init.sh -i default.pem -P 10022 cloud9@$BASE_IP:~/
 workflows:
   version: 2
-  build_and_test:
+  build:
     jobs:
       - build-base-image
