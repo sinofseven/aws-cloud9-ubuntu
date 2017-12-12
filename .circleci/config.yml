@@ -12,11 +12,8 @@ jobs:
           command: echo 'Host *' >> ~/.ssh/config && echo '  StrictHostKeyChecking no' >> ~/.ssh/config && echo '  UserKnownHostsFile=/dev/null' >> ~/.ssh/config && cat ~/.ssh/config
           
       - run:
-          name: info
-          command: docker info
-      - run:
-          name: env
-          command: env
+          name: get remote ip
+          command: echo $DOCKER_HOST | sed -E 's/^.*tcp:\/\/([^/]+).*/\1/g' | sed -e 's/:[0-9]*//'
 #      - run:
 #          name: install ansible
 #          command: apk add --no-cache ansible
