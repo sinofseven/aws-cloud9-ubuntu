@@ -31,7 +31,7 @@ jobs:
           command: apk add --no-cache openssh 
       - run:
           name: ping
-          command: scp init.sh -i default.pem -P 10022 cloud9@$REMOTE_IP:~/
+          command: scp -i default.pem init.sh -P 10022 cloud9@$REMOTE_IP:~/
 workflows:
   version: 2
   build:
