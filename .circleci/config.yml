@@ -14,26 +14,23 @@ jobs:
           name: get remote ip
           command: echo $DOCKER_HOST | sed -E 's/^.*tcp:\/\/([^/]+).*/\1/g' | sed -e 's/:[0-9]*//' > ip
       - run:
-          name: ip check
-          command: echo $(cat ip):10022
-#      - run:
-#          name: install ansible
-#          command: apk add --no-cache ansible
-#      - run:
-#          name: pull latest
-#          command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
-#      - run:
-#          name: build base iamge
-#          command: docker build -t base .
-#      - run:
-#          name: start base container
-#          command: docker run -d --name test -p 10022:22 base
-#      - run:
-#          name: start base container
-#          command: apk add --no-cache openssh 
-#      - run:
-#          name: ping
-#          command: scp -i default.pem -P 10022 init.sh cloud9@$REMOTE_IP:~/
+          name: install ansible
+          command: apk add --no-cache ansible
+      - run:
+          name: pull latest
+          command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
+      - run:
+          name: build base iamge
+          command: docker build -t base .
+      - run:
+          name: start base container
+          command: docker run -d --name test -p 10022:22 base
+      - run:
+          name: start base container
+          command: apk add --no-cache openssh 
+      - run:
+          name: ping
+          command: scp -i default.pem -P 10022 init.sh cloud9@$(cat ip):~/
 workflows:
   version: 2
   build:
