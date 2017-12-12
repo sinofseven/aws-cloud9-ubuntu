@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build-base-image:
+  build-image:
     docker:
       - image: docker
     working_directory: ~/app
@@ -25,9 +25,24 @@ jobs:
       - run:
           name: run ansible
           command: docker run --rm --net=ansible ansible
+      - run:
+          name: stop base
+          command: docker stop base
+      - run:
+          name: commit image
+          command: docker commit base result
+      - run:
+          name: docker login
+          command: docker login -u '$DOCKERHUB_USERNAME' -p '$DOCKER_HUB_PASSWORD'
+      - run:
+          name: rename image
+          command: docker tag result $DOCKERHUB_USERNAME/test-image
+      - run:
+          name: push image
+          command: docker push $DOCKERHUB_USERNAME/test-image
 
 workflows:
   version: 2
   build:
     jobs:
-      - build-base-image
+      - build-image
