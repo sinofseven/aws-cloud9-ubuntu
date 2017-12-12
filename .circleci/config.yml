@@ -15,7 +15,7 @@ jobs:
           command: echo $DOCKER_HOST | sed -E 's/^.*tcp:\/\/([^/]+).*/\1/g' | sed -e 's/:[0-9]*//' > ip
       - run:
           name: ip check
-          command: XXX=$(cat ip) echo $XXX
+          command: echo $(cat ip):10022
 #      - run:
 #          name: install ansible
 #          command: apk add --no-cache ansible
