@@ -33,7 +33,7 @@ jobs:
           command: docker commit base result
       - run:
           name: docker login
-          command: docker login -u '$DOCKERHUB_USERNAME' -p '$DOCKER_HUB_PASSWORD'
+          command: docker login -u '$DOCKERHUB_USERNAME' -p '$DOCKERHUB_PASSWORD'
       - run:
           name: rename image
           command: docker tag result $DOCKERHUB_USERNAME/test-image
