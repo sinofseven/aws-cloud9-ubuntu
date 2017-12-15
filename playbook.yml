@@ -1,6 +1,6 @@
 - hosts: container
   tasks:
-    - name: download
-      get_url:
-        url: https://cf02.luciferous.xyz/vim/linux/vimrc
-        dest: /tmp/vimrc
+    - name: clone anyenv
+        git:
+          repo: https://github.com/riywo/anyenv
+          dest: ~/.anyenv
