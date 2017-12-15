@@ -1,16 +1,20 @@
 - hosts: container
+  become: yes
+  become_user: cloud9
   tasks:
-    - name: source 
-      shell: sh /home/cloud9/.bashrc
-    - name: install pyenv
-      shell: anyenv install pyenv
-      changed_when: false
-    - name: install ndenv
-      shell: anyenv install ndenv
-      changed_when: false
-    - name: install python 2.7.14
-      shell: pyenv install 2.7.14
-      changed_when: false
-    - name: install node 6.10.3
-      shell: ndenv install 6.10.3
-      changed_when: false
+    - name: test
+      chell: env > /home/cloud9/env.txt
+#    - name: source 
+#     shell: sh /home/cloud9/.bashrc
+#    - name: install pyenv
+#      shell: anyenv install pyenv
+#      changed_when: false
+#    - name: install ndenv
+#      shell: anyenv install ndenv
+#      changed_when: false
+#    - name: install python 2.7.14
+#      shell: pyenv install 2.7.14
+#      changed_when: false
+#    - name: install node 6.10.3
+#      shell: ndenv install 6.10.3
+#      changed_when: false
