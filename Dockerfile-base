@@ -26,7 +26,7 @@ RUN useradd cloud9 && \
     chmod 600 /home/cloud9/.ssh/authorized_keys && \
     mkdir /var/run/sshd && \
     chsh -s /bin/bash cloud9 && \
-    git clone https://github.com/riywo/anyenv ~/.anyenv && \
+    git clone https://github.com/riywo/anyenv /home/cloud9/.anyenv && \
     echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> /home/cloud9/.bashrc && \
     echo 'eval "$(anyenv init -)"' >> ~/.bashrc && \
     echo 'alias upbash="source ~/.bashrc"' >> ~/.bashrc && \

@@ -1,14 +1,14 @@
 - hosts: container
-  become: yes
-  become_user: cloud9
+#  become: yes
+#  become_user: cloud9
   tasks:
-    - name: test
-      shell: env | tee /home/cloud9/env.txt
+#    - name: test
+#      shell: env | tee /home/cloud9/env.txt
 #    - name: source 
 #     shell: sh /home/cloud9/.bashrc
-#    - name: install pyenv
-#      shell: anyenv install pyenv
-#      changed_when: false
+    - name: install pyenv
+      shell: anyenv install pyenv
+      changed_when: false
 #    - name: install ndenv
 #      shell: anyenv install ndenv
 #      changed_when: false
