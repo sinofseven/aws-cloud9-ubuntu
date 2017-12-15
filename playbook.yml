@@ -1,7 +1,9 @@
 - hosts: container
   tasks:
+    - name: source 
+      shell: shell: /etc/profile.d/profile_init.sh
     - name: install pyenv
-      shell: source /home/cloud9/.bashrc && anyenv install pyenv
+      shell: anyenv install pyenv
       changed_when: false
     - name: install ndenv
       shell: anyenv install ndenv
