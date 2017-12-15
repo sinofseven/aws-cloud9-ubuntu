@@ -25,7 +25,12 @@ RUN useradd cloud9 && \
     chown -R cloud9:cloud9 /home/cloud9 && \
     chmod 600 /home/cloud9/.ssh/authorized_keys && \
     mkdir /var/run/sshd && \
-    chsh -s /bin/bash cloud9
+    chsh -s /bin/bash cloud9 && \
+    git clone https://github.com/riywo/anyenv ~/.anyenv && \
+    echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> /home/cloud9/.bashrc && \
+    echo 'eval "$(anyenv init -)"' >> ~/.bashrc && \
+    echo 'alias upbash="source ~/.bashrc"' >> ~/.bashrc && \
+    echo 'alias upshell="exec $SHELL -l"' >> ~/.bashrc
 
 ADD sshd_config /etc/ssh/sshd_config
 ADD init.sh /root/init.sh
