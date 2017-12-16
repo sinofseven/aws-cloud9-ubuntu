@@ -12,9 +12,9 @@
 #    - name: install ndenv
 #      shell: anyenv install ndenv
 #      changed_when: false
-#    - name: install python 2.7.14
-#      shell: pyenv install 2.7.14
-#      changed_when: false
+    - name: install python 2.7.14
+      shell: pyenv install 2.7.14
+      changed_when: false
 #    - name: install node 6.10.3
 #      shell: ndenv install 6.10.3
 #      changed_when: false
