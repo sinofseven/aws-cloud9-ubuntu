@@ -20,13 +20,13 @@ RUN useradd cloud9 && \
     echo 'cloud9 ALL=NOPASSWD:ALL' > /etc/sudoers.d/cloud9 && \
     mkdir -p /home/cloud9/.ssh && \
     touch /home/cloud9/.ssh/authorized_keys && \
+    git clone https://github.com/riywo/anyenv /home/cloud9/.anyenv && \
     echo "source .bashrc" > /home/cloud9/.profile && \
     echo "alias ls='ls --color'" > /home/cloud9/.bashrc && \
     chown -R cloud9:cloud9 /home/cloud9 && \
     chmod 600 /home/cloud9/.ssh/authorized_keys && \
     mkdir /var/run/sshd && \
     chsh -s /bin/bash cloud9 && \
-    git clone https://github.com/riywo/anyenv /home/cloud9/.anyenv && \
     echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> /home/cloud9/.bashrc && \
     echo 'eval "$(anyenv init -)"' >> /home/cloud9/.bashrc && \
     echo 'alias upbash="source ~/.bashrc"' >> /home/cloud9/.bashrc && \
