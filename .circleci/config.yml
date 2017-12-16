@@ -47,7 +47,5 @@ workflows:
     jobs:
       - build-image:
           filters:
-            branches:
-              only: master
             tags:
               only: /^v.*/
