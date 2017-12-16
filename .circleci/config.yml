@@ -39,7 +39,7 @@ jobs:
           command: docker tag result $DOCKERHUB_USERNAME/test-image
       - run:
           name: push image
-          command: docker push $DOCKERHUB_USERNAME/test-image
+          command: docker push $DOCKERHUB_USERNAME/test-image:{{ .Tag }}
 
 workflows:
   version: 2
