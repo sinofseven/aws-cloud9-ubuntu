@@ -73,16 +73,16 @@ jobs:
       - setup_remote_docker
       - run:
           name: pull version
-          command: docker pull $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
-      - run:
-          name: set latest
-          command: docker tag $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:latest
-      - run:
-          name: docker login
-          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-      - run:
-          name: push latest
-          command: docker tag $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:latest
+          command: echo "docker pull $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG"
+#      - run:
+#          name: set latest
+#          command: docker tag $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:latest
+#      - run:
+#          name: docker login
+#          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+#      - run:
+#          name: push latest
+#          command: docker tag $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:latest
 
 workflows:
   version: 2
