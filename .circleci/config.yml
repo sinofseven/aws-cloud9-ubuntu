@@ -5,7 +5,7 @@ jobs:
       - image: docker
     working_directory: ~/app
     environment:
-      MY_IMAGE_NAME: test-image
+      MY_IMAGE_NAME: aws-cloud9-ubuntu
     steps:
       - checkout
       - setup_remote_docker
@@ -68,7 +68,7 @@ jobs:
       - image: docker
     working_directory: ~/app
     environment:
-      MY_IMAGE_NAME: test-image
+      MY_IMAGE_NAME: aws-cloud9-ubuntu
     steps:
       - setup_remote_docker
       - run:
