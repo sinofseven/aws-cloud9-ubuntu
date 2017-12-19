@@ -14,3 +14,8 @@
     - name: install node 6.10.3
       shell: ndenv install 6.10.3
       changed_when: false
+    - name: global python 2.7.14
+      shell: pyenv global 2.7.14
+      changed_when: false
+    - name: global node 6.10.3
+      shell: ndenv global 6.10.3
