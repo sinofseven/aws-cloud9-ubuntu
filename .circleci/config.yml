@@ -39,7 +39,7 @@ jobs:
           command: docker tag result $DOCKERHUB_USERNAME/test-image
       - run:
           name: push image
-          command: docker push $DOCKERHUB_USERNAME/test-image:{{ .Tag }}
+          command: docker push $DOCKERHUB_USERNAME/test-image:$CIRCLE_TAG
   build-test:
     docker:
       - image: docker
@@ -55,8 +55,8 @@ workflows:
   version: 2
   build:
     jobs:
-#      - build-image:
-      - build-test:
+      - build-image:
+#      - build-test:
           filters:
             branches:
               ignore: /.*/
