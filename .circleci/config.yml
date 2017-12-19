@@ -13,20 +13,41 @@ jobs:
           name: pull latest
           command: docker pull $DOCKERHUB_USERNAME/aws-cloud9-ubuntu
       - run:
-          name: build ansible image
-          command: docker build -f Dockerfile-ansible -t ansible .
+          name: build my-ansible image
+          command: docker build -f Dockerfile-ansible -t my-ansible .
+      - run:
+          name: build ansible for anyenv image
+          command: docker build -f Dockerfile-anyenv -t my-ansible-anyenv .
+      - run:
+          name: build ansible for upgrade image
+          command: docker build -f Dockerfile-upgrade -t my-ansible-upgrade .
       - run:
           name: build base iamge
-          command: docker build -f Dockerfile-base -t base .
+          command: docker build -f Dockerfile-base -t my-base .
       - run:
           name: create network
           command: docker network create ansible
       - run:
-          name: run base
-          command: docker run -d --name base --net=ansible base
+          name: run my-base
+          command: docker run -d --name base --net=ansible my-base
       - run:
-          name: run ansible
-          command: docker run --rm --net=ansible ansible
+          name: run ansible for anyenv
+          command: docker run --rm --net=ansible my-ansible-anyenv
+      - run:
+          name: stop base
+          command: docker stop base
+      - run:
+          name: commit image
+          command: docker commit base base-anyenv
+      - run:
+          name: remove base
+          command: docker rm base
+      - run:
+          name: run base
+          command: docker run -d --name base --net=ansible base-anyenv
+      - run:
+          name: run ansible for upgrade
+          command: docker run --rm --net=ansible my-ansible-upgrade
       - run:
           name: stop base
           command: docker stop base

@@ -1,0 +1,7 @@
+FROM my-ansible
+
+ADD default.pem /tmp/default.pem
+ADD hosts /tmp/hosts
+ADD playbook-anyenv.yml /tmp/playbook.yml
+WORKDIR /tmp
+CMD ["ansible-playbook", "-i", "hosts", "playbook.yml"]

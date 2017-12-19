@@ -1,9 +1,4 @@
 FROM alpine
 
 RUN apk add --no-cache ansible
-ADD default.pem /tmp/default.pem
-ADD hosts /tmp/hosts
-ADD playbook.yml /tmp/playbook.yml
-WORKDIR /tmp
 ENV ANSIBLE_HOST_KEY_CHECKING False
-CMD ["ansible-playbook", "-i", "hosts", "playbook.yml"]
