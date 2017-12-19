@@ -73,7 +73,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: pull version
-          command: echo "docker pull $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG"
+          command: docker pull $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
       - run:
           name: set latest
           command: docker tag $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
