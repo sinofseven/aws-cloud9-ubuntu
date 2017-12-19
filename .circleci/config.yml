@@ -86,7 +86,7 @@ jobs:
 
 workflows:
   version: 2
-  build:
+  build_and_push:
     jobs:
       - build-image:
           filters:
@@ -98,6 +98,17 @@ workflows:
           type: approval
           requires:
             - build-image
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v.*/
       - push-latest:
           requires:
             - HOLD-FRONT-BUILD
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v.*/
+            
