@@ -2,8 +2,8 @@
   tasks:
     - name: upgrage packages
       apt:
-        name: "*"
-        state: latest
+        upgrade: yes
+        update_cache: yes
       become: true
       become_method: sudo
     - name: Remove useless packages from the cache
