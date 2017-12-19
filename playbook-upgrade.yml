@@ -1,4 +1,5 @@
 - hosts: container
+  become: yes
   tasks:
     - name: upgrage packages
       apt:
