@@ -1,3 +1,5 @@
+- become: yes
+- become_method: sudo
 - hosts: container
   tasks:
     - name: upgrage packages
