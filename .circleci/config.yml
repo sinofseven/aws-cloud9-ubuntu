@@ -40,12 +40,23 @@ jobs:
       - run:
           name: push image
           command: docker push $DOCKERHUB_USERNAME/test-image:{{ .Tag }}
+  build-test:
+    docker:
+      - image: docker
+    working_directory: ~/app
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: env
+          command: env
 
 workflows:
   version: 2
   build:
     jobs:
-      - build-image:
+#      - build-image:
+      - build-test:
           filters:
             branches:
               ignore: /.*/
