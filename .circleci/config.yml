@@ -4,6 +4,8 @@ jobs:
     docker:
       - image: docker
     working_directory: ~/app
+    environment:
+      MY_IMAGE_NAME: test-image
     steps:
       - checkout
       - setup_remote_docker
@@ -35,11 +37,14 @@ jobs:
           name: docker login
           command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run:
-          name: rename image
-          command: docker tag result $DOCKERHUB_USERNAME/test-image
+          name: rename image (latest)
+          command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME
+      - run:
+          name: rename image (vx.x.x)
+          command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
       - run:
           name: push image
-          command: docker push $DOCKERHUB_USERNAME/test-image:$CIRCLE_TAG
+          command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME
   build-test:
     docker:
       - image: docker
