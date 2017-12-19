@@ -55,20 +55,34 @@ jobs:
           name: commit image
           command: docker commit base result
       - run:
-          name: docker login
-          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
-      - run:
-          name: rename image (latest)
-          command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
-      - run:
           name: rename image (vx.x.x)
           command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
       - run:
-          name: push image (latest)
-          command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
+          name: docker login
+          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run:
           name: push image (vx.x.x)
           command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
+  push-latest:
+    docker:
+      - image: docker
+    working_directory: ~/app
+    environment:
+      MY_IMAGE_NAME: test-image
+    steps:
+      - setup_remote_docker
+      - run:
+          name: pull version
+          command: docker pull $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
+      - run:
+          name: set latest
+          command: docker tag $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:latest
+      - run:
+          name: docker login
+          command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+      - run:
+          name: push latest
+          command: docker tag $DOCKER_HUB_USERNAME/$MY_IMAGE_NAME:latest
 
 workflows:
   version: 2
@@ -80,3 +94,10 @@ workflows:
               ignore: /.*/
             tags:
               only: /v.*/
+      - HOLD-FRONT-BUILD:
+          type: approval
+          requires:
+            - build-image
+      - push-latest:
+          requires:
+            - HOLD-FRONT-BUILD
