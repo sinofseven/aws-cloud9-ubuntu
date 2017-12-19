@@ -38,30 +38,23 @@ jobs:
           command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run:
           name: rename image (latest)
-          command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME
+          command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
       - run:
           name: rename image (vx.x.x)
           command: docker tag result $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
       - run:
-          name: push image
-          command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME
-  build-test:
-    docker:
-      - image: docker
-    working_directory: ~/app
-    steps:
-      - checkout
-      - setup_remote_docker
+          name: push image (latest)
+          command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
       - run:
-          name: env
-          command: env
+          name: push image (vx.x.x)
+          command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:$CIRCLE_TAG
 
 workflows:
   version: 2
   build:
     jobs:
       - build-image:
-#      - build-test:
+      - build-test:
           filters:
             branches:
               ignore: /.*/
