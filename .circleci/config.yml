@@ -82,7 +82,7 @@ jobs:
           command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run:
           name: push latest
-          command: docker tag $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
+          command: docker push $DOCKERHUB_USERNAME/$MY_IMAGE_NAME:latest
 
 workflows:
   version: 2
